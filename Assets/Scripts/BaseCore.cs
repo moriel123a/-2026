@@ -1,19 +1,27 @@
+using System;
 using UnityEngine;
 
-public class BaseCore : MonoBehaviour
+public class BaseCore : Singleton<BaseCore>
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    public int CurrentHealth { get; private set; }
 
-    void Awake()
+    public event Action<int> OnHealthChanged;
+
+    protected override void Awake()
     {
-        currentHealth = maxHealth;
+        base.Awake();
+        if (Instance != this) return; // this instance is a duplicate about to be destroyed
+
+        CurrentHealth = maxHealth;
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        CurrentHealth -= amount;
+        OnHealthChanged?.Invoke(CurrentHealth);
+
+        if (CurrentHealth <= 0)
         {
             GameOver();
         }
@@ -22,6 +30,5 @@ public class BaseCore : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Base destroyed. Game over.");
-        // TODO: stop enemy spawning, show a game over screen, etc.
     }
 }

@@ -1,0 +1,14 @@
+using System;
+
+public enum ResourceType
+{
+    Wood,
+    Stone
+}
+
+[Serializable]
+public struct ResourceCost
+{
+    public ResourceType type;
+    public int amount;
+}

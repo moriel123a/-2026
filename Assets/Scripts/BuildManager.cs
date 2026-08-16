@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildManager : MonoBehaviour
+public class BuildManager : Singleton<BuildManager>
 {
-    public static BuildManager Instance { get; private set; }
-
     [Header("Building Configs")]
     [Tooltip("Add one entry per BuildingType, each with its prefab and a BuildingCostSO asset.")]
     public List<BuildingConfig> buildingConfigs;
@@ -15,9 +13,10 @@ public class BuildManager : MonoBehaviour
 
     private BuildingType? selectedType;
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
+        if (Instance != this) return; // this instance is a duplicate about to be destroyed
 
         configLookup = new Dictionary<BuildingType, BuildingConfig>();
         foreach (var config in buildingConfigs)
@@ -26,23 +25,35 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    // Hook these up to UI buttons.
+    // Hook these up to UI buttons if you still want a "select then click a tile" flow elsewhere.
     public void SelectWall() => selectedType = BuildingType.Wall;
     public void SelectCatapult() => selectedType = BuildingType.Catapult;
     public void CancelSelection() => selectedType = null;
 
-    // Called by GridManager when the player clicks a revealed, empty, unoccupied tile.
+    public IEnumerable<BuildingConfig> AllConfigs => configLookup.Values;
+
+    public bool CanAfford(BuildingConfig config)
+    {
+        return ResourceManager.Instance.CanAfford(config.cost.costs);
+    }
+
+    // Used by the "select a building, then click a tile" flow.
     public bool TryPlaceBuilding(int gridX, int gridY, Vector3 worldPosition)
     {
         if (selectedType == null) return false;
+        return TryPlaceBuilding(selectedType.Value, gridX, gridY, worldPosition);
+    }
 
-        if (!configLookup.TryGetValue(selectedType.Value, out BuildingConfig config))
+    // Used by the context menu, which already knows exactly which building was chosen.
+    public bool TryPlaceBuilding(BuildingType type, int gridX, int gridY, Vector3 worldPosition)
+    {
+        if (!configLookup.TryGetValue(type, out BuildingConfig config))
         {
-            Debug.LogWarning($"No BuildingConfig registered for {selectedType.Value}.");
+            Debug.LogWarning($"No BuildingConfig registered for {type}.");
             return false;
         }
 
-        if (!ResourceManager.Instance.TrySpend(config.cost.woodCost, config.cost.stoneCost))
+        if (!ResourceManager.Instance.TrySpend(config.cost.costs))
         {
             Debug.Log("Not enough resources.");
             return false;
@@ -54,7 +65,7 @@ public class BuildManager : MonoBehaviour
 
         GridManager.Instance.SetOccupant(gridX, gridY, building);
 
-        selectedType = null; // one placement per selection - drop this line to allow multi-placing
+        selectedType = null; // clear in case a "select" flow was also in progress
         return true;
     }
 

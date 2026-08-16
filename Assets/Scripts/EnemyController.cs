@@ -10,18 +10,8 @@ public class EnemyController : MonoBehaviour
     public float collisionRadius = 0.5f; // how close a building has to be to block this enemy
 
     private int currentHealth;
-    private Transform baseTarget;
-    private BaseCore baseCore;
     private Building currentTargetBuilding;
     private float attackTimer;
-
-    public void Init(Transform baseTransform, BaseCore core)
-    {
-        baseTarget = baseTransform;
-        baseCore = core;
-        currentHealth = maxHealth;
-        EnemyManager.Instance.Register(this);
-    }
 
     void Update()
     {
@@ -43,13 +33,15 @@ public class EnemyController : MonoBehaviour
 
     void MoveTowardBase()
     {
-        if (baseTarget == null) return;
+        if (BaseCore.Instance == null) return;
 
-        transform.position = Vector3.MoveTowards(transform.position, baseTarget.position, moveSpeed * Time.deltaTime);
+        Vector3 basePosition = BaseCore.Instance.transform.position;
 
-        if (Vector3.Distance(transform.position, baseTarget.position) < 0.2f)
+        transform.position = Vector3.MoveTowards(transform.position, basePosition, moveSpeed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, basePosition) < 0.2f)
         {
-            baseCore.TakeDamage(attackDamage);
+            BaseCore.Instance.TakeDamage(attackDamage);
             Die();
         }
     }

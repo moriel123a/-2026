@@ -1,26 +1,46 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : Singleton<ResourceManager>
 {
-    public static ResourceManager Instance { get; private set; }
+    private readonly Dictionary<ResourceType, int> amounts = new Dictionary<ResourceType, int>();
 
-    public int Wood { get; private set; }
-    public int Stone { get; private set; }
+    // Fired whenever a resource amount changes - passes the type and its new total.
+    public event Action<ResourceType, int> OnResourceChanged;
 
-    void Awake()
+    public int GetAmount(ResourceType type)
     {
-        Instance = this;
+        amounts.TryGetValue(type, out int amount);
+        return amount;
     }
 
-    public void AddWood(int amount) => Wood += amount;
-    public void AddStone(int amount) => Stone += amount;
-
-    public bool TrySpend(int woodCost, int stoneCost)
+    public void AddResource(ResourceType type, int amount)
     {
-        if (Wood < woodCost || Stone < stoneCost) return false;
+        int newAmount = GetAmount(type) + amount;
+        amounts[type] = newAmount;
+        OnResourceChanged?.Invoke(type, newAmount);
+    }
 
-        Wood -= woodCost;
-        Stone -= stoneCost;
+    public bool CanAfford(IEnumerable<ResourceCost> costs)
+    {
+        foreach (var cost in costs)
+        {
+            if (GetAmount(cost.type) < cost.amount) return false;
+        }
+        return true;
+    }
+
+    public bool TrySpend(IEnumerable<ResourceCost> costs)
+    {
+        if (!CanAfford(costs)) return false;
+
+        foreach (var cost in costs)
+        {
+            int newAmount = GetAmount(cost.type) - cost.amount;
+            amounts[cost.type] = newAmount;
+            OnResourceChanged?.Invoke(cost.type, newAmount);
+        }
+
         return true;
     }
 }

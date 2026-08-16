@@ -1,12 +1,8 @@
 using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class GridManager : MonoBehaviour
+public class GridManager : Singleton<GridManager>
 {
-    public static GridManager Instance { get; private set; }
-
     [Header("Grid Settings")]
     public int width = 11;
     public int height = 11;
@@ -33,11 +29,6 @@ public class GridManager : MonoBehaviour
     private TileData[,] grid;
     private TileView[,] views;
     private int centerX, centerY;
-
-    void Awake()
-    {
-        Instance = this;
-    }
 
     void Start()
     {
@@ -77,8 +68,6 @@ public class GridManager : MonoBehaviour
     void SpawnBase()
     {
         BaseCore baseInstance = Instantiate(basePrefab, GridToWorld(centerX, centerY), Quaternion.identity);
-        EnemyManager.Instance.baseTransform = baseInstance.transform;
-        EnemyManager.Instance.baseCore = baseInstance;
     }
 
     public Vector3 GridToWorld(int x, int y)
@@ -205,7 +194,7 @@ public class GridManager : MonoBehaviour
 
         if (isBuildable)
         {
-            BuildManager.Instance.TryPlaceBuilding(x, y, GridToWorld(x, y));
+            BuildContextMenu.Instance.Open(x, y, GridToWorld(x, y));
         }
     }
 
@@ -215,9 +204,9 @@ public class GridManager : MonoBehaviour
         tile.isHarvested = true;
 
         if (tile.type == TileType.Tree)
-            ResourceManager.Instance.AddWood(woodPerTree);
+            ResourceManager.Instance.AddResource(ResourceType.Wood, woodPerTree);
         else if (tile.type == TileType.Stone)
-            ResourceManager.Instance.AddStone(stonePerStone);
+            ResourceManager.Instance.AddResource(ResourceType.Stone, stonePerStone);
 
         views[x, y].ShowHarvested();
     }

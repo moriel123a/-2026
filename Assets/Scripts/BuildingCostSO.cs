@@ -1,8 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingCostSO", menuName = "Scriptable Objects/BuildingCostSO")]
+[CreateAssetMenu(fileName = "BuildingCost", menuName = "TowerDefense/Building Cost")]
 public class BuildingCostSO : ScriptableObject
 {
-    public int woodCost;
-    public int stoneCost;
+    public List<ResourceCost> costs;
+
+    public int GetCost(ResourceType type)
+    {
+        foreach (var cost in costs)
+        {
+            if (cost.type == type) return cost.amount;
+        }
+        return 0;
+    }
 }

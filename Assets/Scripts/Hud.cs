@@ -1,0 +1,61 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+
+public class HUD : MonoBehaviour
+{
+    [SerializeField] private TMP_Text woodText;
+    [SerializeField] private TMP_Text stoneText;
+    [SerializeField] private TMP_Text baseHealthText;
+
+    void Start()
+    {
+        // ResourceManager already exists in the scene at Start, so this is safe immediately.
+        ResourceManager.Instance.OnResourceChanged += OnResourceChanged;
+
+        UpdateWoodText(ResourceManager.Instance.GetAmount(ResourceType.Wood));
+        UpdateStoneText(ResourceManager.Instance.GetAmount(ResourceType.Stone));
+
+        // BaseCore is Instantiated at runtime by GridManager.Start(), so it may not
+        // exist yet here - wait for it instead of assuming it's already spawned.
+        StartCoroutine(SubscribeToBaseCoreWhenReady());
+    }
+
+    IEnumerator SubscribeToBaseCoreWhenReady()
+    {
+        yield return new WaitUntil(() => BaseCore.Instance != null);
+
+        BaseCore.Instance.OnHealthChanged += UpdateHealthText;
+        UpdateHealthText(BaseCore.Instance.CurrentHealth);
+    }
+
+    void OnDestroy()
+    {
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnResourceChanged -= OnResourceChanged;
+        }
+
+        if (BaseCore.Instance != null)
+        {
+            BaseCore.Instance.OnHealthChanged -= UpdateHealthText;
+        }
+    }
+
+    private void OnResourceChanged(ResourceType type, int amount)
+    {
+        switch (type)
+        {
+            case ResourceType.Wood:
+                UpdateWoodText(amount);
+                break;
+            case ResourceType.Stone:
+                UpdateStoneText(amount);
+                break;
+        }
+    }
+
+    private void UpdateWoodText(int amount) => woodText.text = $"Wood: {amount}";
+    private void UpdateStoneText(int amount) => stoneText.text = $"Stone: {amount}";
+    private void UpdateHealthText(int health) => baseHealthText.text = $"Health: {health}";
+}
