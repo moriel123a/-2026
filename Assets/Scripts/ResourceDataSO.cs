@@ -24,11 +24,6 @@ public class ResourceDataSO : ScriptableObject
         return icon;
     }
 
-    void OnEnable()
-    {
-        BuildLookup();
-    }
-
     private void BuildLookup()
     {
         lookup = new Dictionary<ResourceType, Sprite>();

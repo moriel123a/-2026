@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29f73940470adb4aabb515f6bcc9673, type: 3}
   m_Name: WallCost
   m_EditorClassIdentifier: Assembly-CSharp::BuildingCostSO
-  woodCost: 3
-  stoneCost: 2
+  costs:
+  - type: 0
+    amount: 5
+  - type: 1
+    amount: 1

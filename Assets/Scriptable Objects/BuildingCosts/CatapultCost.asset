@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29f73940470adb4aabb515f6bcc9673, type: 3}
   m_Name: CatapultCost
   m_EditorClassIdentifier: Assembly-CSharp::BuildingCostSO
-  woodCost: 3
-  stoneCost: 6
+  costs:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 6

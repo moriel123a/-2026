@@ -12,10 +12,8 @@ public class BuildOptionRow : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
 
     [Header("Right - Resource Costs")]
-    [SerializeField] private Image woodIcon;
-    [SerializeField] private TMP_Text woodCostText;
-    [SerializeField] private Image stoneIcon;
-    [SerializeField] private TMP_Text stoneCostText;
+    [SerializeField] private GameObject resourceCostContainer;
+    [SerializeField] private GameObject resourceCostPrefab;
 
     [Header("State")]
     [SerializeField] private Button button;
@@ -25,12 +23,6 @@ public class BuildOptionRow : MonoBehaviour
     {
         buildingIcon.sprite = config.icon;
         nameText.text = config.displayName;
-
-        woodIcon.sprite = resourceDatabase.GetIcon(ResourceType.Wood);
-        woodCostText.text = config.cost.GetCost(ResourceType.Wood).ToString();
-
-        stoneIcon.sprite = resourceDatabase.GetIcon(ResourceType.Stone);
-        stoneCostText.text = config.cost.GetCost(ResourceType.Stone).ToString();
 
         button.interactable = canAfford;
         canvasGroup.alpha = canAfford ? 1f : 0.4f;
