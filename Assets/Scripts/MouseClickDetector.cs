@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class MouseClickDetector : MonoBehaviour
@@ -13,6 +14,9 @@ public class MouseClickDetector : MonoBehaviour
 
     private void TryClickAtMouse()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         Vector2 screenPos = Mouse.current.position.ReadValue();
         Vector2 clickPos = Camera.main.ScreenToWorldPoint(screenPos);
         Collider2D hit = Physics2D.OverlapPoint(clickPos);

@@ -27,6 +27,11 @@ public class BuildContextMenu : Singleton<BuildContextMenu>
         backgroundBlocker.GetComponent<Button>().onClick.AddListener(Close);
     }
 
+    private void Update()
+    {
+        Debug.Log($"{Mouse.current.position.ReadValue()}");
+    }
+
     // Called by GridManager when the player clicks a revealed, empty, unoccupied tile.
     public void Open(int gridX, int gridY, Vector3 worldPosition)
     {
@@ -100,6 +105,6 @@ public class BuildContextMenu : Singleton<BuildContextMenu>
         if (localPos.y - menuHeight < 0)
             localPos.y += menuHeight; // flip up (pivot is top-left, so the menu extends downward from localPos.y)
 
-        panel.anchoredPosition = localPos;
+        panel.transform.position = localPos;
     }
 }

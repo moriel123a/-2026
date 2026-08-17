@@ -1179,12 +1179,12 @@ MonoBehaviour:
   buildingConfigs:
   - type: 0
     displayName: Wall
-    icon: {fileID: -4695084534343251850, guid: 9f866a4aef28710499c8c7d8b3ba89c1, type: 3}
+    icon: {fileID: 21300000, guid: 9f866a4aef28710499c8c7d8b3ba89c1, type: 3}
     prefab: {fileID: 2787660340388747352, guid: 7776a931d725cfe4a9a96af86920dd2e, type: 3}
     cost: {fileID: 11400000, guid: 5947c862ce157734e9ad01bd5ee7bb4f, type: 2}
   - type: 1
     displayName: Catapult
-    icon: {fileID: -154139334052807852, guid: c21fec6dced11b64cb8fd6e8b30f808b, type: 3}
+    icon: {fileID: 21300000, guid: c21fec6dced11b64cb8fd6e8b30f808b, type: 3}
     prefab: {fileID: 1952663936861208816, guid: 8d187becd9d6fdd4a97e8d064dc7bdac, type: 3}
     cost: {fileID: 11400000, guid: 75eced13936cf5643bef29cf86bcc5e9, type: 2}
 --- !u!4 &1714630346
@@ -1311,17 +1311,33 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4152429835543688732, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1489.719
+      objectReference: {fileID: 0}
     - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -795.2614
       objectReference: {fileID: 0}
     - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 345.8595
       objectReference: {fileID: 0}
     - target: {fileID: 6108715218993011777, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -504.6307
       objectReference: {fileID: 0}
     - target: {fileID: 6980781028976525600, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
       propertyPath: m_Pivot.x
@@ -1407,7 +1423,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildContextMenu
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8716987521602143613, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8716987521602143613, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8716987521602143613, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2474078196634010601, guid: 2902e446c5148e440a887480e56e1f11, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
