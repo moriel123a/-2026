@@ -7,19 +7,64 @@ public class CatapultTower : Building
     public int attackDamage = 8;
     public float attackCooldown = 1.2f;
 
+    [SerializeField] private GameObject projectilePrefab;
+
+    [Header("Aiming")]
+    [Tooltip("Degrees per second the turret rotates to face its target.")]
+    public float rotationSpeed = 360f;
+    [Tooltip("Adjust if the turret sprite's default facing isn't to the right (0 = right, -90 = up, 90 = down).")]
+    public float rotationOffset = 0f;
+    [Tooltip("How close to dead-on (in degrees) the turret needs to be aimed before it's allowed to fire.")]
+    public float aimTolerance = 5f;
+
     private float attackTimer;
+    private EnemyController currentTarget;
 
     void Update()
     {
-        attackTimer -= Time.deltaTime;
-        if (attackTimer > 0f) return;
+        currentTarget = FindNearestEnemyInRange();
+        if (currentTarget == null) return;
 
-        EnemyController target = FindNearestEnemyInRange();
-        if (target != null)
+        RotateTowardTarget();
+
+        attackTimer -= Time.deltaTime;
+        if (attackTimer <= 0f && IsAimedAtTarget())
         {
-            target.TakeDamage(attackDamage);
-            attackTimer = attackCooldown;
+            Fire();
         }
+    }
+
+    void RotateTowardTarget()
+    {
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, GetTowerAngle());
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    bool IsAimedAtTarget()
+    {
+        float angleDifference = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, GetTowerAngle()));
+        return angleDifference <= aimTolerance;
+    }
+
+    float GetTargetAngle()
+    {
+        Vector3 direction = currentTarget.transform.position - transform.position;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+
+    float GetTowerAngle()
+    {
+        return GetTargetAngle() + rotationOffset;
+    }
+
+    void Fire()
+    {
+        float angle = GetTargetAngle();
+
+        Quaternion projectileRotation = Quaternion.Euler(0f, 0f, angle);
+
+        Instantiate(projectilePrefab, transform.position, projectileRotation);
+        attackTimer = attackCooldown;
     }
 
     EnemyController FindNearestEnemyInRange()

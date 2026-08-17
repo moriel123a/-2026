@@ -13,6 +13,18 @@ public class EnemyController : MonoBehaviour
     private Building currentTargetBuilding;
     private float attackTimer;
 
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        EnemyManager.Instance.Register(this);
+    }
+
     void Update()
     {
         if (currentTargetBuilding != null)
@@ -20,7 +32,10 @@ public class EnemyController : MonoBehaviour
             AttackBuilding();
             return;
         }
+    }
 
+    private void FixedUpdate()
+    {
         Building blocker = FindBlockingBuilding();
         if (blocker != null)
         {
@@ -37,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
         Vector3 basePosition = BaseCore.Instance.transform.position;
 
-        transform.position = Vector3.MoveTowards(transform.position, basePosition, moveSpeed * Time.deltaTime);
+        rb.MovePosition(Vector3.MoveTowards(transform.position, basePosition, moveSpeed * Time.deltaTime));
 
         if (Vector3.Distance(transform.position, basePosition) < 0.2f)
         {
