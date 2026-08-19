@@ -6,10 +6,16 @@ public class EnemyManager : Singleton<EnemyManager>
     public List<EnemyController> ActiveEnemies { get; } = new List<EnemyController>();
 
     public EnemyController enemyPrefab;
+    public EnemyController bossPrefab;
 
     public void SpawnEnemy(Vector3 worldPosition)
     {
         EnemyController enemy = Instantiate(enemyPrefab, worldPosition, Quaternion.identity);
+    }
+
+    public void SpawnBoss(Vector3 worldPosition)
+    {
+        EnemyController boss = Instantiate(bossPrefab, worldPosition, Quaternion.identity);
     }
 
     public void Register(EnemyController enemy)

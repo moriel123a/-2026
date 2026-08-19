@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   width: 11
-  height: 11
+  height: 9
   tileSpacing: 1.1
   emptyWeight: 40
   treeWeight: 25
@@ -1009,6 +1009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyPrefab: {fileID: 2407324179752520860, guid: 70cf03be060d6834fb160751c59d99da, type: 3}
+  bossPrefab: {fileID: 7509138626493715090, guid: 69a2bcf3a86222747b5f260408b701a6, type: 3}
 --- !u!4 &1232749739
 Transform:
   m_ObjectHideFlags: 0

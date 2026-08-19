@@ -29,6 +29,8 @@ public class GridManager : Singleton<GridManager>
     private TileData[,] grid;
     private TileView[,] views;
     private int centerX, centerY;
+    private int revealedTileCount = 0;
+    private bool bossSpawned;
 
     void Start()
     {
@@ -59,6 +61,7 @@ public class GridManager : Singleton<GridManager>
                 if (isCenter)
                 {
                     grid[x, y].isRevealed = true;
+                    revealedTileCount++;
                     view.ShowRevealed(TileType.Empty);
                 }
             }
@@ -166,6 +169,12 @@ public class GridManager : Singleton<GridManager>
     void RevealTile(int x, int y)
     {
         TileData tile = grid[x, y];
+        if (tile.isRevealed)
+        {
+            return;
+        }
+
+        revealedTileCount++;
         tile.isRevealed = true;
         views[x, y].ShowRevealed(tile.type);
 
@@ -175,6 +184,8 @@ public class GridManager : Singleton<GridManager>
         {
             EnemyManager.Instance.SpawnEnemy(GridToWorld(x, y));
         }
+
+        CheckForBossSpawn();
     }
 
     void OnRevealedTileClicked(int x, int y)
@@ -220,4 +231,35 @@ public class GridManager : Singleton<GridManager>
     {
         grid[x, y].occupant = null;
     }
+
+    void CheckForBossSpawn()
+    {
+        if (bossSpawned) return;
+        if (revealedTileCount < width * height) return;
+
+        bossSpawned = true;
+        EnemyManager.Instance.SpawnBoss(GetRandomEdgeWorldPosition());
+    }
+
+    // Picks a random cell along the outer edge of the grid and returns its world position.
+    Vector3 GetRandomEdgeWorldPosition()
+    {
+        int x, y;
+
+        if (Random.value < 0.5f)
+        {
+            // Top or bottom edge, random column.
+            x = Random.Range(0, width);
+            y = Random.value < 0.5f ? 0 : height - 1;
+        }
+        else
+        {
+            // Left or right edge, random row.
+            x = Random.value < 0.5f ? 0 : width - 1;
+            y = Random.Range(0, height);
+        }
+
+        return GridToWorld(x, y);
+    }
+
 }

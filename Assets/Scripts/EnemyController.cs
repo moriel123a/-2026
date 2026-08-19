@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         EnemyManager.Instance.Register(this);
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -30,7 +31,6 @@ public class EnemyController : MonoBehaviour
         if (currentTargetBuilding != null)
         {
             AttackBuilding();
-            return;
         }
     }
 
@@ -40,10 +40,11 @@ public class EnemyController : MonoBehaviour
         if (blocker != null)
         {
             currentTargetBuilding = blocker;
-            return;
+        } else
+        {
+            MoveTowardBase();
         }
 
-        MoveTowardBase();
     }
 
     void MoveTowardBase()
@@ -56,8 +57,7 @@ public class EnemyController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, basePosition) < 0.2f)
         {
-            BaseCore.Instance.TakeDamage(attackDamage);
-            Die();
+            AttackBase();
         }
     }
 
@@ -87,6 +87,16 @@ public class EnemyController : MonoBehaviour
         {
             attackTimer = attackCooldown;
             currentTargetBuilding.TakeDamage(attackDamage);
+        }
+    }
+
+    void AttackBase()
+    {
+        attackTimer -= Time.deltaTime;
+        if (attackTimer <= 0f)
+        {
+            attackTimer = attackCooldown;
+            BaseCore.Instance.TakeDamage(attackDamage);
         }
     }
 
