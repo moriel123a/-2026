@@ -6,7 +6,8 @@ public class GridManager : Singleton<GridManager>
     [Header("Grid Settings")]
     public int width = 11;
     public int height = 11;
-    public float tileSpacing = 1.1f;
+    [Tooltip("Distance from a hex tile's center to one of its corners.")]
+    public float hexSize = 0.6f;
 
     [Header("Tile Content Weights (relative chance)")]
     public float emptyWeight = 40f;
@@ -29,7 +30,7 @@ public class GridManager : Singleton<GridManager>
     private TileData[,] grid;
     private TileView[,] views;
     private int centerX, centerY;
-    private int revealedTileCount = 0;
+    private int revealedTileCount;
     private bool bossSpawned;
 
     void Start()
@@ -70,16 +71,32 @@ public class GridManager : Singleton<GridManager>
 
     void SpawnBase()
     {
-        BaseCore baseInstance = Instantiate(basePrefab, GridToWorld(centerX, centerY), Quaternion.identity);
+        Instantiate(basePrefab, GridToWorld(centerX, centerY), Quaternion.identity);
     }
 
+    // Flat-top hex grid using "odd-q" offset coordinates: columns (x) are the primary axis,
+    // and every odd column is nudged down by half a tile height so tiles interlock.
+    // See https://www.redblobgames.com/grids/hexagons/ for the reference derivation.
     public Vector3 GridToWorld(int x, int y)
     {
+        float horizontalSpacing = hexSize * 1.5f;
+        float verticalSpacing = hexSize * Mathf.Sqrt(3f);
+
+        Vector3 pos = HexColumnRowToLocal(x, y, horizontalSpacing, verticalSpacing);
+        Vector3 centerPos = HexColumnRowToLocal(centerX, centerY, horizontalSpacing, verticalSpacing);
+
         // Offset so that (centerX, centerY) - the base tile - lands exactly on this GameObject's position.
-        float offsetX = (x - centerX) * tileSpacing;
-        float offsetY = (y - centerY) * tileSpacing;
-        return transform.position + new Vector3(offsetX, offsetY, 0f);
+        return transform.position + (pos - centerPos);
     }
+
+    Vector3 HexColumnRowToLocal(int col, int row, float horizontalSpacing, float verticalSpacing)
+    {
+        float posX = col * horizontalSpacing;
+        float posY = row * verticalSpacing + (IsOddColumn(col) ? verticalSpacing * 0.5f : 0f);
+        return new Vector3(posX, posY, 0f);
+    }
+
+    static bool IsOddColumn(int col) => (col & 1) == 1;
 
     TileType RollTileType()
     {
@@ -147,13 +164,23 @@ public class GridManager : Singleton<GridManager>
         return selected;
     }
 
+    // Neighbor offsets for flat-top hexes in "odd-q" offset coordinates - which 6 cells
+    // count as adjacent depends on whether the column is even or odd.
+    static readonly Vector2Int[] EvenColumnDirs =
+    {
+        new Vector2Int(1, 0), new Vector2Int(1, -1), new Vector2Int(0, -1),
+        new Vector2Int(-1, -1), new Vector2Int(-1, 0), new Vector2Int(0, 1)
+    };
+
+    static readonly Vector2Int[] OddColumnDirs =
+    {
+        new Vector2Int(1, 1), new Vector2Int(1, 0), new Vector2Int(0, -1),
+        new Vector2Int(-1, 0), new Vector2Int(-1, 1), new Vector2Int(0, 1)
+    };
+
     void AddNeighborsToFrontier(Vector2Int tile, HashSet<Vector2Int> selectedSet, List<Vector2Int> frontier)
     {
-        Vector2Int[] dirs =
-        {
-            new Vector2Int(1, 0), new Vector2Int(-1, 0),
-            new Vector2Int(0, 1), new Vector2Int(0, -1)
-        };
+        Vector2Int[] dirs = IsOddColumn(tile.x) ? OddColumnDirs : EvenColumnDirs;
 
         foreach (var d in dirs)
         {
@@ -169,13 +196,8 @@ public class GridManager : Singleton<GridManager>
     void RevealTile(int x, int y)
     {
         TileData tile = grid[x, y];
-        if (tile.isRevealed)
-        {
-            return;
-        }
-
-        revealedTileCount++;
         tile.isRevealed = true;
+        revealedTileCount++;
         views[x, y].ShowRevealed(tile.type);
 
         // Enemies aren't tile decoration - revealing one spawns a mobile unit that
@@ -186,6 +208,36 @@ public class GridManager : Singleton<GridManager>
         }
 
         CheckForBossSpawn();
+    }
+
+    void CheckForBossSpawn()
+    {
+        if (bossSpawned) return;
+        if (revealedTileCount < width * height) return;
+
+        bossSpawned = true;
+        EnemyManager.Instance.SpawnBoss(GetRandomEdgeWorldPosition());
+    }
+
+    // Picks a random cell along the outer edge of the grid and returns its world position.
+    Vector3 GetRandomEdgeWorldPosition()
+    {
+        int x, y;
+
+        if (Random.value < 0.5f)
+        {
+            // Top or bottom edge, random column.
+            x = Random.Range(0, width);
+            y = Random.value < 0.5f ? 0 : height - 1;
+        }
+        else
+        {
+            // Left or right edge, random row.
+            x = Random.value < 0.5f ? 0 : width - 1;
+            y = Random.Range(0, height);
+        }
+
+        return GridToWorld(x, y);
     }
 
     void OnRevealedTileClicked(int x, int y)
@@ -231,35 +283,4 @@ public class GridManager : Singleton<GridManager>
     {
         grid[x, y].occupant = null;
     }
-
-    void CheckForBossSpawn()
-    {
-        if (bossSpawned) return;
-        if (revealedTileCount < width * height) return;
-
-        bossSpawned = true;
-        EnemyManager.Instance.SpawnBoss(GetRandomEdgeWorldPosition());
-    }
-
-    // Picks a random cell along the outer edge of the grid and returns its world position.
-    Vector3 GetRandomEdgeWorldPosition()
-    {
-        int x, y;
-
-        if (Random.value < 0.5f)
-        {
-            // Top or bottom edge, random column.
-            x = Random.Range(0, width);
-            y = Random.value < 0.5f ? 0 : height - 1;
-        }
-        else
-        {
-            // Left or right edge, random row.
-            x = Random.value < 0.5f ? 0 : width - 1;
-            y = Random.Range(0, height);
-        }
-
-        return GridToWorld(x, y);
-    }
-
 }
