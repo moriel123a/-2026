@@ -4,8 +4,8 @@ using UnityEngine;
 public class GridManager : Singleton<GridManager>
 {
     [Header("Grid Settings")]
-    public int width = 11;
-    public int height = 11;
+    public int width = 1;
+    public int height = 1;
     public float tileSpacing = 1.1f;
 
     [Header("Tile Content Weights (relative chance)")]
