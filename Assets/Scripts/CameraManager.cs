@@ -62,6 +62,14 @@ public class CameraController2D : MonoBehaviour
         {
             Vector3 difference = dragOrigin - GetPointerWorldPosition();
             mainCamera.transform.position += difference;
+
+            GridManager gridInstance = GridManager.Instance;
+            Vector2 minPos = gridInstance.GridToWorld(0, 0);
+            Vector2 maxPos = gridInstance.GridToWorld(gridInstance.width - 1, gridInstance.height - 1);
+            float positionX = Mathf.Clamp(mainCamera.transform.position.x, minPos.x, maxPos.x);
+            float positionY = Mathf.Clamp(mainCamera.transform.position.y, minPos.y, maxPos.y);
+            
+            mainCamera.transform.position = new Vector3(positionX, positionY, mainCamera.transform.position.z);
         }
     }
 

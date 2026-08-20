@@ -550,7 +550,7 @@ MonoBehaviour:
   dragAction: {fileID: 4293966034343947351, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   pointAction: {fileID: -8931042650082703047, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   zoomAction: {fileID: 6646035474882216402, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  zoomSpeed: 3
+  zoomSpeed: 30
   minZoom: 2
   maxZoom: 15
 --- !u!4 &671888419
