@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 // Turns raw press/point/zoom Input Actions into higher-level tap/drag/zoom events that
@@ -11,7 +12,7 @@ public class InputManager : Singleton<InputManager>
     [Header("Input Actions")]
     [SerializeField] private InputActionReference pressAction; // Button - held down
     [SerializeField] private InputActionReference pointAction; // Vector2 - pointer/touch position
-    [SerializeField] private InputActionReference zoomAction;  // Vector2 (mouse scroll) - .y is used as the zoom amount
+    [SerializeField] private InputActionReference zoomAction; // Vector2 (mouse scroll) - .y is used as the zoom amount
 
     [Header("Tap vs Drag")]
     [Tooltip("If the pointer moves further than this (in screen pixels) while held, it counts as a drag instead of a tap.")]
@@ -25,13 +26,10 @@ public class InputManager : Singleton<InputManager>
 
     private bool isPressed;
     private bool isDragging;
+    private bool ignoreCurrentPress; // true if this press started over a UI element
     private Vector2 pressStartPosition;
     private Vector2 lastPosition;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
     void OnEnable()
     {
         pressAction.action.Enable();
@@ -77,6 +75,12 @@ public class InputManager : Singleton<InputManager>
 
     private void OnPressStarted(InputAction.CallbackContext ctx)
     {
+        ignoreCurrentPress = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        if (ignoreCurrentPress)
+        {
+            return;
+        }
+
         isPressed = true;
         isDragging = false;
         pressStartPosition = pointAction.action.ReadValue<Vector2>();
@@ -85,6 +89,12 @@ public class InputManager : Singleton<InputManager>
 
     private void OnPressCanceled(InputAction.CallbackContext ctx)
     {
+        if (ignoreCurrentPress)
+        {
+            ignoreCurrentPress = false;
+            return;
+        }
+
         isPressed = false;
 
         if (isDragging)
@@ -100,6 +110,7 @@ public class InputManager : Singleton<InputManager>
 
     private void OnZoomPerformed(InputAction.CallbackContext ctx)
     {
+        // Mouse scroll is a Vector2 action by default; .y is the vertical scroll amount.
         float amount = ctx.ReadValue<Vector2>().y;
         if (amount != 0f)
         {
