@@ -27,8 +27,9 @@ public class BaseCore : Singleton<BaseCore>
         }
     }
 
-    void GameOver()
+    public bool GameOver()
     {
         Debug.Log("Base destroyed. Game over.");
+        return true;
     }
 }

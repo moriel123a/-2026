@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    BaseCore baseCore;
-    
     [Header("UI")]
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject Menu;
@@ -37,14 +35,6 @@ public class GameManager : MonoBehaviour
             HUD.SetActive(false);
             Menu.SetActive(true);
             gamePause.SetActive(true);
-            Time.timeScale = 0;
-        }
-
-        if (baseCore.maxHealth <= 0)
-        {
-            HUD.SetActive(false);
-            Menu.SetActive(true);
-            gameOver.SetActive(true);
             Time.timeScale = 0;
         }
     }
