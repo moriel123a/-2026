@@ -7,9 +7,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject settingsMenu;
     
-    [Header("scene name")]
-    [SerializeField] private UnityEditor.SceneAsset sceneToLoad;
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +25,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         // need to add game mod selection menu
-        SceneManager.LoadScene(sceneToLoad.name);
+        SceneManager.LoadScene(1);
     }
     
     public void QuitGame()

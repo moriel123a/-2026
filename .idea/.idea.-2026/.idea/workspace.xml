@@ -11,8 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66783187-b6b1-4d9d-8401-bbdaca4b1a38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.-2026/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.-2026/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,18 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "sleeploser"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sleeploser&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/moriel123a/-2026.git",
-    "accountId": "9f61ba6e-70b0-4248-91d8-3ba5d8089bcb"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/moriel123a/-2026.git&quot;,
+    &quot;accountId&quot;: &quot;9f61ba6e-70b0-4248-91d8-3ba5d8089bcb&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -46,67 +48,67 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.1975103279658443" />
-      <entry key="MS500" value="1.7235590158687697" />
-      <entry key="S2" value="2.078147253502837" />
-      <entry key="S5" value="2.4613610535968515" />
-      <entry key="S10" value="3.0702140001570792" />
-      <entry key="S30" value="6.568794216421475" />
-      <entry key="S60" value="9.677402605795429" />
-      <entry key="M2" value="12.956013791447495" />
-      <entry key="M5" value="19.37364525836885" />
-      <entry key="M10" value="26.555306083787947" />
-      <entry key="M15" value="31.0759465602773" />
-      <entry key="M30" value="37.90544384537755" />
-      <entry key="H1" value="42.727278798089635" />
-      <entry key="H2" value="45.64838009407267" />
-      <entry key="H4" value="47.26527141140619" />
-      <entry key="D1" value="48.70221355575139" />
-      <entry key="W1" value="48.957240230185874" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000000013" />
+      <entry key="S2" value="1.000317986195029" />
+      <entry key="S5" value="1.0604757467774653" />
+      <entry key="S10" value="1.348034344983862" />
+      <entry key="S30" value="2.501822549159646" />
+      <entry key="S60" value="5.138511473598042" />
+      <entry key="M2" value="10.109081209867853" />
+      <entry key="M5" value="19.509961613348718" />
+      <entry key="M10" value="33.29745881810509" />
+      <entry key="M15" value="46.39322691833335" />
+      <entry key="M30" value="73.81621180523324" />
+      <entry key="H1" value="98.78070926541278" />
+      <entry key="H2" value="116.11218371462255" />
+      <entry key="H4" value="126.4070866310643" />
+      <entry key="D1" value="135.9699225819745" />
+      <entry key="W1" value="137.707481251013" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="3.5155675083075474E-59" />
-      <entry key="MS500" value="2.037976108466276E-12" />
-      <entry key="S2" value="0.0011948125974350374" />
-      <entry key="S5" value="0.06783166840724249" />
-      <entry key="S10" value="0.2692365034423159" />
-      <entry key="S30" value="0.8488695865242515" />
-      <entry key="S60" value="1.3390512292239385" />
-      <entry key="M2" value="2.0963700966241143" />
-      <entry key="M5" value="3.8473751978279074" />
-      <entry key="M10" value="5.880203354025788" />
-      <entry key="M15" value="7.175179465157096" />
-      <entry key="M30" value="9.09101598105835" />
-      <entry key="H1" value="10.390200483392693" />
-      <entry key="H2" value="11.15147791308353" />
-      <entry key="H4" value="11.564166451428912" />
-      <entry key="D1" value="11.925693718672516" />
-      <entry key="W1" value="11.98934317605516" />
+      <entry key="MS100" value="4.485984883937437E-8" />
+      <entry key="MS500" value="0.03391341787130647" />
+      <entry key="S2" value="0.4291569347276874" />
+      <entry key="S5" value="0.7271075413827737" />
+      <entry key="S10" value="0.9888171714456425" />
+      <entry key="S30" value="2.3084756384688196" />
+      <entry key="S60" value="4.20480632747408" />
+      <entry key="M2" value="6.465229125640669" />
+      <entry key="M5" value="9.265665355340966" />
+      <entry key="M10" value="12.262536226867688" />
+      <entry key="M15" value="14.926318854741957" />
+      <entry key="M30" value="20.537267294253855" />
+      <entry key="H1" value="25.732340556964942" />
+      <entry key="H2" value="29.37444205475756" />
+      <entry key="H4" value="31.547251180812566" />
+      <entry key="D1" value="33.57011396481766" />
+      <entry key="W1" value="33.938047962361296" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.95784829529576" />
-      <entry key="MS500" value="1.4375623211360324" />
-      <entry key="S2" value="1.971227249237659" />
-      <entry key="S5" value="2.44202678811633" />
-      <entry key="S10" value="3.203697260062838" />
-      <entry key="S30" value="7.2412329152600865" />
-      <entry key="S60" value="10.873004816011548" />
-      <entry key="M2" value="14.944647007996966" />
-      <entry key="M5" value="23.148699386236668" />
-      <entry key="M10" value="32.38531229145008" />
-      <entry key="M15" value="38.21221364199381" />
-      <entry key="M30" value="46.97301748072131" />
-      <entry key="H1" value="53.10436662971886" />
-      <entry key="H2" value="56.7928801924262" />
-      <entry key="H4" value="58.82583210765409" />
-      <entry key="D1" value="60.62728897974205" />
-      <entry key="W1" value="60.946494638452414" />
+      <entry key="MS100" value="0.0011939846468777228" />
+      <entry key="MS500" value="0.26395606375930697" />
+      <entry key="S2" value="0.9611521498906783" />
+      <entry key="S5" value="1.5108219956768782" />
+      <entry key="S10" value="2.1496050074859894" />
+      <entry key="S30" value="4.6730086522213234" />
+      <entry key="S60" value="9.209751363688191" />
+      <entry key="M2" value="16.462465578748198" />
+      <entry key="M5" value="28.701690079423997" />
+      <entry key="M10" value="45.501658962515585" />
+      <entry key="M15" value="61.26733959141226" />
+      <entry key="M30" value="94.31349954276638" />
+      <entry key="H1" value="124.48672304507923" />
+      <entry key="H2" value="145.47125179448224" />
+      <entry key="H4" value="157.945991946111" />
+      <entry key="D1" value="169.53854329883296" />
+      <entry key="W1" value="171.645313233654" />
     </decayedShown>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3IBBc6mizKCbtZfBuzGg2PpKjJ6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -114,14 +116,63 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "SecondGameModProtype",
+    "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Unity\6000.3.11f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath C:\GitHub\-2026 -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\GitHub\-2026" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Unity\6000.3.11f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\GitHub\-2026 -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\GitHub\-2026" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to" type="UnityDevicePlayer" factoryName="UnityAttachToDevicePlayer">
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="66783187-b6b1-4d9d-8401-bbdaca4b1a38" name="Changes" comment="" />
@@ -130,6 +181,7 @@
       <option name="presentableId" value="Default" />
       <updated>1787228159323</updated>
       <workItem from="1787228159926" duration="4636000" />
+      <workItem from="1787316875184" duration="3221000" />
     </task>
     <servers />
   </component>
