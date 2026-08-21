@@ -28,6 +28,10 @@ public class InputManager : Singleton<InputManager>
     private Vector2 pressStartPosition;
     private Vector2 lastPosition;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     void OnEnable()
     {
         pressAction.action.Enable();

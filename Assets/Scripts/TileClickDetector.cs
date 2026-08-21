@@ -1,18 +1,35 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class TileClickDetector : MonoBehaviour
 {
-    void OnEnable()
+    private Coroutine subscribeRoutine;
+
+    private void OnEnable()
     {
-        InputManager.Instance.OnTap += HandleTap;
+        subscribeRoutine = StartCoroutine(SubscribeWhenReady());
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
+        if (subscribeRoutine != null)
+        {
+            StopCoroutine(subscribeRoutine);
+            subscribeRoutine = null;
+        }
+
         if (InputManager.Instance == null) return;
         InputManager.Instance.OnTap -= HandleTap;
+    }
+
+    // Makes sure InputManager created an instance before subscribing
+    private IEnumerator SubscribeWhenReady()
+    {
+        yield return new WaitUntil(() => InputManager.Instance != null);
+
+        InputManager.Instance.OnTap += HandleTap;
     }
 
     private void HandleTap(Vector2 screenPos)

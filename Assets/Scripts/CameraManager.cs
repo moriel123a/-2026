@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraController2D : MonoBehaviour
 {
@@ -13,16 +13,33 @@ public class CameraController2D : MonoBehaviour
     [SerializeField] private float minZoom = 2f;
     [SerializeField] private float maxZoom = 15f;
 
+    private Coroutine subscribeRoutine;
+
     private void OnEnable()
     {
-        InputManager.Instance.OnDrag += HandlePan;
-        InputManager.Instance.OnZoom += HandleZoom;
+        subscribeRoutine = StartCoroutine(SubscribeWhenReady());
     }
 
     private void OnDisable()
     {
+        if (subscribeRoutine != null)
+        {
+            StopCoroutine(subscribeRoutine);
+            subscribeRoutine = null;
+        }
+
+        if (InputManager.Instance == null) return;
         InputManager.Instance.OnDrag -= HandlePan;
         InputManager.Instance.OnZoom -= HandleZoom;
+    }
+
+    // Makes sure InputManager created an instance before subscribing
+    private IEnumerator SubscribeWhenReady()
+    {
+        yield return new WaitUntil(() => InputManager.Instance != null);
+
+        InputManager.Instance.OnDrag += HandlePan;
+        InputManager.Instance.OnZoom += HandleZoom;
     }
 
     private void HandlePan(Vector2 currentPosition, Vector2 delta)
