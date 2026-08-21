@@ -2,22 +2,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class MouseClickDetector : MonoBehaviour
+public class TileClickDetector : MonoBehaviour
 {
-    void Update()
+    void OnEnable()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            TryClickAtMouse();
-        }
+        InputManager.Instance.OnTap += HandleTap;
     }
 
-    private void TryClickAtMouse()
+    void OnDisable()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        if (InputManager.Instance == null) return;
+        InputManager.Instance.OnTap -= HandleTap;
+    }
 
-        Vector2 screenPos = Mouse.current.position.ReadValue();
+    private void HandleTap(Vector2 screenPos)
+    {
         Vector2 clickPos = Camera.main.ScreenToWorldPoint(screenPos);
         Collider2D hit = Physics2D.OverlapPoint(clickPos);
 

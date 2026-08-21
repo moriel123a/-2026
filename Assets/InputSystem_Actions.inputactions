@@ -7,7 +7,7 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Drag",
+                    "name": "Press",
                     "type": "Button",
                     "id": "32fd1589-f0f7-4acc-8385-50ac15182c9a",
                     "expectedControlType": "",
@@ -38,18 +38,18 @@
                 {
                     "name": "",
                     "id": "8011745f-e843-4840-84ee-426819c5b578",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Drag",
+                    "action": "Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "3bf8f566-d289-494b-a4d5-4643e2bc7e07",
-                    "path": "<Mouse>/position",
+                    "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

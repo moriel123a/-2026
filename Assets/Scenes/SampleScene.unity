@@ -547,9 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController2D
   mainCamera: {fileID: 519420031}
-  dragAction: {fileID: 4293966034343947351, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  pointAction: {fileID: -8931042650082703047, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  zoomAction: {fileID: 6646035474882216402, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  panSpeed: 1
   zoomSpeed: 30
   minZoom: 2
   maxZoom: 15
@@ -996,6 +994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225589351}
   - component: {fileID: 1225589350}
+  - component: {fileID: 1225589352}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -1030,6 +1029,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1225589352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225589349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e7c03664fcdf94385b4aaf056b1a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pressAction: {fileID: 4293966034343947351, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  pointAction: {fileID: -8931042650082703047, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  zoomAction: {fileID: 6646035474882216402, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  dragThreshold: 10
 --- !u!1 &1232749737
 GameObject:
   m_ObjectHideFlags: 0
