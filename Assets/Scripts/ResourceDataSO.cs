@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A scriptable object containing all resources and their icons.
+/// </summary>
 [CreateAssetMenu(fileName = "ResourceDatabase", menuName = "TowerDefense/Resource Database")]
 public class ResourceDataSO : ScriptableObject
 {
@@ -24,6 +27,9 @@ public class ResourceDataSO : ScriptableObject
         return icon;
     }
 
+    /// <summary>
+    /// Converts the list into a dictionary for faster lookup.
+    /// </summary>
     private void BuildLookup()
     {
         lookup = new Dictionary<ResourceType, Sprite>();

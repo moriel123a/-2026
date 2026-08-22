@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// A class for the projectile shot by towers.
+/// Moves in a straight line until hits enemy or for a limited time.
+/// Deals damage to enemies.
+/// </summary>
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float timeToLive;

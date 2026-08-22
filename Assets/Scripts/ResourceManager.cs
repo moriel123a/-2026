@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// A class managing the resources that the player has.
+/// Use to get and spend resources.
+/// </summary>
 public class ResourceManager : Singleton<ResourceManager>
 {
     private readonly Dictionary<ResourceType, int> amounts = new Dictionary<ResourceType, int>();
@@ -21,6 +25,11 @@ public class ResourceManager : Singleton<ResourceManager>
         OnResourceChanged?.Invoke(type, newAmount);
     }
 
+    /// <summary>
+    /// Checks if the player can afford a given building cost.
+    /// </summary>
+    /// <param name="costs">The cost of the building.</param>
+    /// <returns></returns>
     public bool CanAfford(IEnumerable<ResourceCost> costs)
     {
         foreach (var cost in costs)

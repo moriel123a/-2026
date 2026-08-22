@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
+
+/// <summary>
+/// A class to detect clicks on tiles and gameobjects with clickable.
+/// </summary>
 public class TileClickDetector : MonoBehaviour
 {
     private Coroutine subscribeRoutine;

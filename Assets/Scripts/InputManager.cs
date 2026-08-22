@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-// Turns raw press/point/zoom Input Actions into higher-level tap/drag/zoom events that
-// any consumer (camera, tile clicks, etc.) can subscribe to without caring what device
-// produced them. Swapping the mouse bindings for touch bindings later shouldn't require
-// changing this class at all - only the Input Actions asset's bindings.
+/// <summary>
+/// Turns raw press/point/zoom Input Actions into higher-level tap/drag/zoom events that
+/// any consumer (camera, tile clicks, etc.) can subscribe to without caring what device
+/// produced them. Swapping the mouse bindings for touch bindings later shouldn't require
+/// changing this class at all - only the Input Actions asset's bindings.
+/// </summary>
 public class InputManager : Singleton<InputManager>
 {
     [Header("Input Actions")]

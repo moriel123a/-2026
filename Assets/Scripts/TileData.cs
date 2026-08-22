@@ -1,3 +1,6 @@
+/// <summary>
+/// Enum with all the stuff that can be revealed under a hidden tile.
+/// </summary>
 public enum TileType
 {
     Empty,
@@ -6,6 +9,9 @@ public enum TileType
     Enemy
 }
 
+/// <summary>
+/// Class with information about a single tile.
+/// </summary>
 [System.Serializable]
 public class TileData
 {

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// The class for a tile prefab that is visible in the game.
+/// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class TileView : MonoBehaviour, IClickable
 {
@@ -34,6 +37,10 @@ public class TileView : MonoBehaviour, IClickable
         grid.OnTileClicked(x, y);
     }
 
+    /// <summary>
+    /// Happens when the tile is revealed to show what's beneath it. Called from the grid manager.
+    /// </summary>
+    /// <param name="type">The object under the revealed tile.</param>
     public void ShowRevealed(TileType type)
     {
         if (background != null && revealedSprite != null)
@@ -59,6 +66,9 @@ public class TileView : MonoBehaviour, IClickable
         }
     }
 
+    /// <summary>
+    /// Called when the resource in the tile is harvested to remove it.
+    /// </summary>
     public void ShowHarvested()
     {
         if (icon != null)
