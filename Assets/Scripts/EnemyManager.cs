@@ -27,5 +27,9 @@ public class EnemyManager : Singleton<EnemyManager>
     public void Unregister(EnemyController enemy)
     {
         ActiveEnemies.Remove(enemy);
+        if (ActiveEnemies.Count == 0 && GridManager.Instance.bossSpawned)
+        {
+            GameManager.Instance.GameWon();
+        }
     }
 }

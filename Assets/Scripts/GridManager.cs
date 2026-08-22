@@ -31,7 +31,7 @@ public class GridManager : Singleton<GridManager>
     private TileView[,] views;
     private int centerX, centerY;
     private int revealedTileCount;
-    private bool bossSpawned;
+    public bool bossSpawned{get;private set;}
 
     void Start()
     {

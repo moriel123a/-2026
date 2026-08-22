@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     
     [Header("UI")]
@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         gameWon.SetActive(false);
         gamePause.SetActive(false);
         Time.timeScale = 1;
-
     }
 
     // Update is called once per frame
@@ -61,6 +60,22 @@ public class GameManager : MonoBehaviour
     
     public void QuitGame()
     {
+        // only for the download game
         Application.Quit();
+    }
+
+    public void GameOver()
+    {
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        gameOver.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void GameWon()
+    {
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        gameWon.SetActive(true);
+        Time.timeScale = 0;
     }
 }

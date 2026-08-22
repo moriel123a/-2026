@@ -23,13 +23,7 @@ public class BaseCore : Singleton<BaseCore>
 
         if (CurrentHealth <= 0)
         {
-            GameOver();
+            GameManager.Instance.GameOver();
         }
-    }
-
-    public bool GameOver()
-    {
-        Debug.Log("Base destroyed. Game over.");
-        return true;
     }
 }
