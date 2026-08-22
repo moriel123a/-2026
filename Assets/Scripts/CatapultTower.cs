@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// A normal tower that shoots at the closest enemy in range.
+/// </summary>
 public class CatapultTower : Building
 {
     [Header("Attack")]
@@ -52,6 +55,7 @@ public class CatapultTower : Building
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 
+    // The angle the tower needs to get to to aim at the target takes tower offset into consideration.
     float GetTowerAngle()
     {
         return GetTargetAngle() + rotationOffset;

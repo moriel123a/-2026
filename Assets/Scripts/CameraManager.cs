@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Controls camera movement and zoom.
+/// </summary>
 public class CameraController2D : MonoBehaviour
 {
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
 
     [Header("Pan Settings")]
-    [SerializeField] private float panSpeed = 1f; // 1 means the same location will always stay under you pointer
+    [SerializeField] private float panSpeed = 1f; // 1 means the same location will always stay under you pointer when you drag.
     [Header("Zoom Settings")]
     [SerializeField] private float zoomSpeed = 0.5f;
     [SerializeField] private float minZoom = 2f;

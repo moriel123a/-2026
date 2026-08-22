@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable object with the build cost of a single building.
+/// Used inside the build config.
+/// </summary>
 [CreateAssetMenu(fileName = "BuildingCost", menuName = "TowerDefense/Building Cost")]
 public class BuildingCostSO : ScriptableObject
 {

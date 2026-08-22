@@ -29,6 +29,7 @@ public class InputManager : Singleton<InputManager>
     private bool ignoreCurrentPress; // true if this press started over a UI element
     private Vector2 pressStartPosition;
     private Vector2 lastPosition;
+    private bool isHoveringtUI;
 
     void OnEnable()
     {
@@ -50,6 +51,7 @@ public class InputManager : Singleton<InputManager>
 
     void Update()
     {
+        isHoveringtUI = EventSystem.current.IsPointerOverGameObject();
         if (!isPressed) return;
 
         Vector2 currentPosition = pointAction.action.ReadValue<Vector2>();
@@ -75,7 +77,7 @@ public class InputManager : Singleton<InputManager>
 
     private void OnPressStarted(InputAction.CallbackContext ctx)
     {
-        ignoreCurrentPress = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        ignoreCurrentPress = EventSystem.current != null && isHoveringtUI;
         if (ignoreCurrentPress)
         {
             return;

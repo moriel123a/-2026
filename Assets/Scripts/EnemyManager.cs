@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for creating and destroying all enemy instances.
+/// Contains all active enemies, when an enemy is created or destroyed it should register here.
+/// </summary>
 public class EnemyManager : Singleton<EnemyManager>
 {
     public List<EnemyController> ActiveEnemies { get; } = new List<EnemyController>();

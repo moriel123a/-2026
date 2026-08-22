@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// A class for the context menu that is opened when trying to build a tower.
+/// </summary>
 public class BuildContextMenu : Singleton<BuildContextMenu>
 {
     [Header("References")]
@@ -13,9 +16,9 @@ public class BuildContextMenu : Singleton<BuildContextMenu>
     [SerializeField] private GameObject backgroundBlocker; // full-screen invisible Image + Button, closes menu on click
     [SerializeField] private ResourceDataSO resourceDatabase;
 
-    private int pendingGridX, pendingGridY;
-    private Vector3 pendingWorldPos;
-    private readonly List<BuildOptionRow> spawnedRows = new List<BuildOptionRow>();
+    private int pendingGridX, pendingGridY; // The grid coordinates you are trying to place a building in.
+    private Vector3 pendingWorldPos;        // The world position you are trying to place a building in.
+    private readonly List<BuildOptionRow> spawnedRows = new List<BuildOptionRow>(); // Objects that represent the different build options inside the menu
 
     protected override void Awake()
     {
@@ -53,6 +56,7 @@ public class BuildContextMenu : Singleton<BuildContextMenu>
         backgroundBlocker.SetActive(false);
     }
 
+    // Create the rows inside the menu that show the different build options.
     private void BuildRows()
     {
         ClearRows();

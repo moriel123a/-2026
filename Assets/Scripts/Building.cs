@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// A base class for buildings that can be placed by the player.
+/// </summary>
 public class Building : MonoBehaviour
 {
     public int maxHealth = 30;

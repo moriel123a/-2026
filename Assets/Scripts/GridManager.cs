@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for creating the board and tiles and contains all information about the tiles.
+/// </summary>
 public class GridManager : Singleton<GridManager>
 {
     [Header("Grid Settings")]
@@ -27,8 +30,8 @@ public class GridManager : Singleton<GridManager>
     public TileView tilePrefab;
     public BaseCore basePrefab;
 
-    private TileData[,] grid;
-    private TileView[,] views;
+    private TileData[,] grid; // The grid that contains information about the board.
+    private TileView[,] views; // The grid that contains the visible prefabs.
     private int centerX, centerY;
     private int revealedTileCount;
     private bool bossSpawned;
@@ -89,6 +92,14 @@ public class GridManager : Singleton<GridManager>
         return transform.position + (pos - centerPos);
     }
 
+    /// <summary>
+    /// Converts hex tile coordinates on grid to local position.
+    /// </summary>
+    /// <param name="col">The column number.</param>
+    /// <param name="row">The row number.</param>
+    /// <param name="horizontalSpacing">The horizontal spacing set in the grid manager options.</param>
+    /// <param name="verticalSpacing">The vertical spacing set in the grid manager options.</param>
+    /// <returns>The local position of the hex tile.</returns>
     Vector3 HexColumnRowToLocal(int col, int row, float horizontalSpacing, float verticalSpacing)
     {
         float posX = col * horizontalSpacing;
@@ -96,8 +107,12 @@ public class GridManager : Singleton<GridManager>
         return new Vector3(posX, posY, 0f);
     }
 
-    static bool IsOddColumn(int col) => (col & 1) == 1;
+    static bool IsOddColumn(int col) => (col & 1) == 1; // Used for calculating positions.
 
+    /// <summary>
+    /// Picks a random tile type using the defined weights.
+    /// </summary>
+    /// <returns>Chosend tile type.</returns>
     TileType RollTileType()
     {
         float total = emptyWeight + treeWeight + stoneWeight + enemyWeight;
@@ -123,6 +138,11 @@ public class GridManager : Singleton<GridManager>
         }
     }
 
+    /// <summary>
+    /// Reveal a random cluster around selected tile using the cluster size settings defined in grid manager.
+    /// </summary>
+    /// <param name="startX">The x coordinate of the selected tile.</param>
+    /// <param name="startY">The y coordinate of the selected tile.</param>
     void RevealCluster(int startX, int startY)
     {
         int targetSize = Random.Range(minClusterSize, maxClusterSize + 1);
@@ -134,8 +154,14 @@ public class GridManager : Singleton<GridManager>
         }
     }
 
-    // Grows a connected blob starting at (startX, startY) by repeatedly picking a
-    // random tile from the frontier (unrevealed neighbors of the selection so far).
+    /// <summary>
+    /// Grows a connected blob starting at (startX, startY) by repeatedly picking a
+    /// random tile from the frontier (unrevealed neighbors of the selection so far).
+    /// </summary>
+    /// <param name="startX"></param>
+    /// <param name="startY"></param>
+    /// <param name="targetSize"></param>
+    /// <returns>Grid coordinates of revealed tiles.</returns>
     List<Vector2Int> GetRandomConnectedCluster(int startX, int startY, int targetSize)
     {
         List<Vector2Int> selected = new List<Vector2Int>();
@@ -210,6 +236,9 @@ public class GridManager : Singleton<GridManager>
         CheckForBossSpawn();
     }
 
+    /// <summary>
+    /// Checks if all tiles were revealed to spawn the boss.
+    /// </summary>
     void CheckForBossSpawn()
     {
         if (bossSpawned) return;
@@ -219,7 +248,10 @@ public class GridManager : Singleton<GridManager>
         EnemyManager.Instance.SpawnBoss(GetRandomEdgeWorldPosition());
     }
 
-    // Picks a random cell along the outer edge of the grid and returns its world position.
+    /// <summary>
+    /// Picks a random cell along the outer edge of the grid and returns its world position.
+    /// </summary>
+    /// <returns>World position of the picked cell.</returns>
     Vector3 GetRandomEdgeWorldPosition()
     {
         int x, y;
@@ -261,6 +293,11 @@ public class GridManager : Singleton<GridManager>
         }
     }
 
+    /// <summary>
+    /// Called whhn a resource is clicked to harvest.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     void HarvestTile(int x, int y)
     {
         TileData tile = grid[x, y];
@@ -274,11 +311,23 @@ public class GridManager : Singleton<GridManager>
         views[x, y].ShowHarvested();
     }
 
+    /// <summary>
+    /// Adds a building to tile.
+    /// Can only have one building per tile.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="building"></param>
     public void SetOccupant(int x, int y, Building building)
     {
         grid[x, y].occupant = building;
     }
 
+    /// <summary>
+    /// Removes a building from tile.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     public void ClearOccupant(int x, int y)
     {
         grid[x, y].occupant = null;

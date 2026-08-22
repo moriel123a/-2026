@@ -2,7 +2,10 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class HUD : MonoBehaviour
+/// <summary>
+/// The script responsible for HUD functions.
+/// </summary>
+public class HUD : MonoBehaviour // TODO: switch wood and stone text to be use icons and be instantiated in runtime using a loop in case of more resources.
 {
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text stoneText;

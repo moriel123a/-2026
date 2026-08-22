@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// The class that controls the basic enemy.
+/// Just walks in a straight line torwards the base if blocked by a building attack it.
+/// </summary>
 public class EnemyController : MonoBehaviour
 {
     [Header("Stats")]
@@ -7,10 +11,10 @@ public class EnemyController : MonoBehaviour
     public int maxHealth = 20;
     public int attackDamage = 5;
     public float attackCooldown = 1f;
-    public float collisionRadius = 0.5f; // how close a building has to be to block this enemy
+    public float collisionRadius = 0.5f; // how close a building has to be to block this enemy and how close it has to be to attack the base
 
     private int currentHealth;
-    private Building currentTargetBuilding;
+    private Building currentTargetBuilding; // A building that blocks movement.
     private float attackTimer;
 
     private Rigidbody2D rb;
@@ -28,39 +32,45 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        currentTargetBuilding = FindBlockingBuilding();
         if (currentTargetBuilding != null)
         {
             AttackBuilding();
+        } else
+        {
+            TryAttackBase();
         }
     }
 
     private void FixedUpdate()
     {
-        Building blocker = FindBlockingBuilding();
-        if (blocker != null)
-        {
-            currentTargetBuilding = blocker;
-        } else
+        if (currentTargetBuilding == null)
         {
             MoveTowardBase();
         }
-
     }
 
     void MoveTowardBase()
     {
         if (BaseCore.Instance == null) return;
 
-        Vector3 basePosition = BaseCore.Instance.transform.position;
+        rb.MovePosition(Vector3.MoveTowards(transform.position, BaseCore.Instance.transform.position, moveSpeed * Time.deltaTime));
+    }
 
-        rb.MovePosition(Vector3.MoveTowards(transform.position, basePosition, moveSpeed * Time.deltaTime));
+    void TryAttackBase() // Attack base if in range
+    {
+        if (BaseCore.Instance == null) return;
 
-        if (Vector3.Distance(transform.position, basePosition) < 0.2f)
+        if (Vector3.Distance(transform.position, BaseCore.Instance.transform.position) < collisionRadius)
         {
             AttackBase();
         }
     }
 
+    /// <summary>
+    /// Checks if blocked by a building.
+    /// </summary>
+    /// <returns>Blocking building. Returns null if not blocked.</returns>
     Building FindBlockingBuilding()
     {
         Building closest = null;
@@ -80,16 +90,22 @@ public class EnemyController : MonoBehaviour
         return closest;
     }
 
+    /// <summary>
+    /// Attack the blocking building if can or lowers attack timer.
+    /// </summary>
     void AttackBuilding()
     {
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0f)
         {
             attackTimer = attackCooldown;
-            currentTargetBuilding.TakeDamage(attackDamage);
+            currentTargetBuilding?.TakeDamage(attackDamage);
         }
     }
 
+    /// <summary>
+    /// Like attack building will attack base if can or lower attack timer.
+    /// </summary>
     void AttackBase()
     {
         attackTimer -= Time.deltaTime;

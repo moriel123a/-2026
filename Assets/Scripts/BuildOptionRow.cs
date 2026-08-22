@@ -3,6 +3,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A single row inside the building context menu.
+/// Represents a single building option.
+/// </summary>
 public class BuildOptionRow : MonoBehaviour
 {
     [Header("Left")]

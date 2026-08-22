@@ -1,47 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class to contain the build actions, and building information.
+/// Use this class to build and destroy buildings.
+/// </summary>
 public class BuildManager : Singleton<BuildManager>
 {
     [Header("Building Configs")]
     [Tooltip("Add one entry per BuildingType, each with its prefab and a BuildingCostSO asset.")]
     public List<BuildingConfig> buildingConfigs;
 
-    private Dictionary<BuildingType, BuildingConfig> configLookup;
+    private Dictionary<BuildingType, BuildingConfig> configLookup; // Information about all buildable buildings.
 
     public List<Building> ActiveBuildings { get; } = new List<Building>();
-
-    private BuildingType? selectedType;
 
     protected override void Awake()
     {
         base.Awake();
         if (Instance != this) return; // this instance is a duplicate about to be destroyed
 
-        configLookup = new Dictionary<BuildingType, BuildingConfig>();
+        configLookup = new Dictionary<BuildingType, BuildingConfig>(); // Converts the list to a dictionary for fasater lookup.
         foreach (var config in buildingConfigs)
         {
             configLookup[config.type] = config;
         }
     }
 
-    // Hook these up to UI buttons if you still want a "select then click a tile" flow elsewhere.
-    public void SelectWall() => selectedType = BuildingType.Wall;
-    public void SelectCatapult() => selectedType = BuildingType.Catapult;
-    public void CancelSelection() => selectedType = null;
-
     public IEnumerable<BuildingConfig> AllConfigs => configLookup.Values;
 
     public bool CanAfford(BuildingConfig config)
     {
         return ResourceManager.Instance.CanAfford(config.cost.costs);
-    }
-
-    // Used by the "select a building, then click a tile" flow.
-    public bool TryPlaceBuilding(int gridX, int gridY, Vector3 worldPosition)
-    {
-        if (selectedType == null) return false;
-        return TryPlaceBuilding(selectedType.Value, gridX, gridY, worldPosition);
     }
 
     // Used by the context menu, which already knows exactly which building was chosen.
@@ -65,10 +55,10 @@ public class BuildManager : Singleton<BuildManager>
 
         GridManager.Instance.SetOccupant(gridX, gridY, building);
 
-        selectedType = null; // clear in case a "select" flow was also in progress
         return true;
     }
 
+    // Called when an enemy destroys a building to remove it from the boards.
     public void NotifyBuildingDestroyed(Building building)
     {
         ActiveBuildings.Remove(building);
