@@ -42,6 +42,7 @@ public class GridManager : Singleton<GridManager>
         centerX = width / 2;
         centerY = height / 2;
         GenerateGrid();
+        SetGridNumbers();
         SpawnBase();
     }
 
@@ -71,6 +72,45 @@ public class GridManager : Singleton<GridManager>
                 }
             }
         }
+    }
+
+    private void SetGridNumbers()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                List<Vector2Int> neighbors = FindNeighnors(new Vector2Int(x, y));
+                int safeNumber = 0;
+                int dangerNumber = 0;
+                GetDangerAndSafeNumbers(neighbors, out safeNumber, out dangerNumber);
+
+                views[x, y].SetSafeNumber(safeNumber);
+                views[x, y].SetDangerNumber(dangerNumber);
+            }
+        }
+    }
+
+    private void GetDangerAndSafeNumbers(List<Vector2Int> neighbors, out int safeNumber, out int dangerNumber)
+    {
+        safeNumber = 0;
+        dangerNumber = 0;
+        foreach (Vector2Int v in neighbors)
+        {
+            TileData currentTile = grid[v.x, v.y];
+            if (currentTile.type == TileType.Enemy)
+            {
+                dangerNumber++;
+            } else
+            {
+                if (currentTile.type != TileType.Empty)
+                {
+                    safeNumber++;
+                }
+            }
+        }
+
+
     }
 
     void SpawnBase()
@@ -218,6 +258,22 @@ public class GridManager : Singleton<GridManager>
 
             frontier.Add(n);
         }
+    }
+
+    private List<Vector2Int> FindNeighnors(Vector2Int tile)
+    {
+        List<Vector2Int> neighbors = new List<Vector2Int>();
+        Vector2Int[] dirs = IsOddColumn(tile.x) ? OddColumnDirs : EvenColumnDirs;
+
+        foreach (var d in dirs)
+        {
+            Vector2Int n = tile + d;
+            if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height) continue;
+
+            neighbors.Add(n);
+        }
+
+        return neighbors;
     }
 
     void RevealTile(int x, int y)

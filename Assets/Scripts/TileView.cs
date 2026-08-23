@@ -23,6 +23,10 @@ public class TileView : MonoBehaviour, IClickable
     private int x, y;
     private GridManager grid;
 
+    private void Start()
+    {
+        ShowNumbers(false);
+    }
     public void Init(int x, int y, GridManager grid)
     {
         this.x = x;
@@ -68,6 +72,8 @@ public class TileView : MonoBehaviour, IClickable
                 icon.enabled = false;
                 break;
         }
+
+        ShowNumbers(true);
     }
 
     /// <summary>
@@ -77,5 +83,25 @@ public class TileView : MonoBehaviour, IClickable
     {
         if (icon != null)
             icon.enabled = false;
+    }
+
+    /// <summary>
+    /// Set the safe numers to enabled/disabled used at start and when revealed
+    /// </summary>
+    /// <param name="show">Whether to numbers or not</param>
+    private void ShowNumbers(bool show) 
+    {
+        dangerNumber.enabled = show;
+        safeNumber.enabled = show;
+    }
+
+    public void SetSafeNumber(int number)
+    {
+        safeNumber.text = number.ToString();
+    }
+
+    public void SetDangerNumber(int number)
+    {
+        dangerNumber.text = number.ToString();
     }
 }
