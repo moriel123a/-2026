@@ -26,10 +26,11 @@ public class HUD : MonoBehaviour // TODO: switch wood and stone text to be use i
 
     IEnumerator SubscribeToBaseCoreWhenReady()
     {
-        yield return new WaitUntil(() => BaseCore.Instance != null);
+        yield return new WaitUntil(() => GridManager.Instance.playerBase != null);
 
-        BaseCore.Instance.OnHealthChanged += UpdateHealthText;
-        UpdateHealthText(BaseCore.Instance.CurrentHealth);
+        BaseCore playerBase = GridManager.Instance.playerBase;
+        playerBase.OnHealthChanged += UpdateHealthText;
+        UpdateHealthText(playerBase.CurrentHealth);
     }
 
     void OnDestroy()
@@ -39,9 +40,9 @@ public class HUD : MonoBehaviour // TODO: switch wood and stone text to be use i
             ResourceManager.Instance.OnResourceChanged -= OnResourceChanged;
         }
 
-        if (BaseCore.Instance != null)
+        if (GridManager.Instance.playerBase != null)
         {
-            BaseCore.Instance.OnHealthChanged -= UpdateHealthText;
+            GridManager.Instance.playerBase.OnHealthChanged -= UpdateHealthText;
         }
     }
 

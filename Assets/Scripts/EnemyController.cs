@@ -52,16 +52,16 @@ public class EnemyController : MonoBehaviour
 
     void MoveTowardBase()
     {
-        if (BaseCore.Instance == null) return;
+        if (GridManager.Instance.playerBase == null) return;
 
-        rb.MovePosition(Vector3.MoveTowards(transform.position, BaseCore.Instance.transform.position, moveSpeed * Time.deltaTime));
+        rb.MovePosition(Vector3.MoveTowards(transform.position, GridManager.Instance.playerBase.transform.position, moveSpeed * Time.deltaTime));
     }
 
     void TryAttackBase() // Attack base if in range
     {
-        if (BaseCore.Instance == null) return;
+        if (GridManager.Instance.playerBase == null) return;
 
-        if (Vector3.Distance(transform.position, BaseCore.Instance.transform.position) < collisionRadius)
+        if (Vector3.Distance(transform.position, GridManager.Instance.playerBase.transform.position) < collisionRadius)
         {
             AttackBase();
         }
@@ -112,7 +112,7 @@ public class EnemyController : MonoBehaviour
         if (attackTimer <= 0f)
         {
             attackTimer = attackCooldown;
-            BaseCore.Instance.TakeDamage(attackDamage);
+            GridManager.Instance.playerBase.TakeDamage(attackDamage);
         }
     }
 

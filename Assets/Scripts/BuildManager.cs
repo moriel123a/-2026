@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.STP;
 
 /// <summary>
 /// A class to contain the build actions, and building information.
@@ -49,13 +50,20 @@ public class BuildManager : Singleton<BuildManager>
             return false;
         }
 
-        Building building = Instantiate(config.prefab, worldPosition, Quaternion.identity);
+        CreateBuilding(config.prefab, gridX, gridY, worldPosition);
+
+        return true;
+    }
+
+    public Building CreateBuilding(Building prefab, int gridX, int gridY, Vector3 worldPosition)
+    {
+        Building building = Instantiate(prefab, worldPosition, Quaternion.identity);
         building.SetGridPosition(gridX, gridY);
         ActiveBuildings.Add(building);
 
         GridManager.Instance.SetOccupant(gridX, gridY, building);
 
-        return true;
+        return building;
     }
 
     // Called when an enemy destroys a building to remove it from the boards.

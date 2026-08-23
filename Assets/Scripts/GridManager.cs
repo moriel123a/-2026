@@ -35,6 +35,7 @@ public class GridManager : Singleton<GridManager>
     private int centerX, centerY;
     private int revealedTileCount;
     private bool bossSpawned;
+    public BaseCore playerBase { get; private set; }
 
     void Start()
     {
@@ -74,7 +75,7 @@ public class GridManager : Singleton<GridManager>
 
     void SpawnBase()
     {
-        Instantiate(basePrefab, GridToWorld(centerX, centerY), Quaternion.identity);
+        playerBase = BuildManager.Instance.CreateBuilding(basePrefab, centerX, centerY, GridToWorld(centerX, centerY)) as BaseCore;
     }
 
     // Flat-top hex grid using "odd-q" offset coordinates: columns (x) are the primary axis,
