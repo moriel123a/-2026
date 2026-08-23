@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,10 +12,33 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gamePause;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject gameWon;
-    
 
-    
-    
+    private Coroutine subscribeRoutine;
+
+    private void OnEnable()
+    {
+        subscribeRoutine = StartCoroutine(SubscribeWhenReady());
+    }
+
+    private void OnDisable()
+    {
+        if (subscribeRoutine != null)
+        {
+            StopCoroutine(subscribeRoutine);
+            subscribeRoutine = null;
+            GridManager.Instance.playerBase.OnBuildingDestroyed -= GameOver;
+        }
+    }
+
+    // Makes sure there is a player base before subscribing/
+    private IEnumerator SubscribeWhenReady()
+    {
+        yield return new WaitUntil(() => GridManager.Instance != null && GridManager.Instance.playerBase != null && EnemyManager.Instance != null);
+
+        GridManager.Instance.playerBase.OnBuildingDestroyed += GameOver;
+        EnemyManager.Instance.OnEnemyKilled += (enemy) => CheckVictory();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,10 +56,7 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            HUD.SetActive(false);
-            Menu.SetActive(true);
-            gamePause.SetActive(true);
-            Time.timeScale = 0;
+            Pause();
         }
     }
     
@@ -45,6 +66,14 @@ public class GameManager : MonoBehaviour
         Menu.SetActive(false);
         gamePause.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void Pause()
+    {
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        gamePause.SetActive(true);
+        Time.timeScale = 0;
     }
     
     public void MainMenu()
@@ -62,5 +91,34 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void GameOver()
+    {
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        gameOver.SetActive(true);
+        gameWon.SetActive(false);
+        gamePause.SetActive(false);
+        Time.timeScale = 0;
+
+    }
+
+    private void GameWon()
+    {
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        gameOver.SetActive(false);
+        gameWon.SetActive(true);
+        gamePause.SetActive(false);
+        Time.timeScale = 0;
+    }
+
+    private void CheckVictory()
+    {
+        if (GridManager.Instance.bossSpawned && EnemyManager.Instance.ActiveEnemies.Count <= 0)
+        {
+            GameWon();
+        }
     }
 }

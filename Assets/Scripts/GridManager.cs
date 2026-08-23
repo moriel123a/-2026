@@ -34,7 +34,7 @@ public class GridManager : Singleton<GridManager>
     private TileView[,] views; // The grid that contains the visible prefabs.
     private int centerX, centerY;
     private int revealedTileCount;
-    private bool bossSpawned;
+    public bool bossSpawned { get; private set; }
     public BaseCore playerBase { get; private set; }
 
     void Start()

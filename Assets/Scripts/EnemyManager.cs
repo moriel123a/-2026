@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public EnemyController enemyPrefab;
     public EnemyController bossPrefab;
+
+    public event Action<EnemyController> OnEnemyKilled;
 
     public void SpawnEnemy(Vector3 worldPosition)
     {
@@ -31,5 +34,6 @@ public class EnemyManager : Singleton<EnemyManager>
     public void Unregister(EnemyController enemy)
     {
         ActiveEnemies.Remove(enemy);
+        OnEnemyKilled?.Invoke(enemy);
     }
 }
