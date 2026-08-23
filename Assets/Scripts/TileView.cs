@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +16,9 @@ public class TileView : MonoBehaviour, IClickable
 
     public Sprite treeIcon;
     public Sprite stoneIcon;
+
+    public TMP_Text safeNumber;
+    public TMP_Text dangerNumber;
 
     private int x, y;
     private GridManager grid;
