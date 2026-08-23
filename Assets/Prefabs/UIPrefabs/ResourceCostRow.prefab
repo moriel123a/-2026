@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60.0053, y: 0}
+  m_SizeDelta: {x: 6.4315653, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1468615411732411118
 CanvasRenderer:
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.44958496, y: 0.44943237, z: 0, w: 0}
+  m_margin: {x: 0.44958496, y: 0.44943237, z: 0.81451416, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 7095785842140170910}
   - component: {fileID: 1349585920815340275}
   - component: {fileID: 3791299277104745645}
+  - component: {fileID: 4755164139960445289}
   m_Layer: 5
   m_Name: ResourceCostRow
   m_TagString: Untagged
@@ -172,10 +173,10 @@ RectTransform:
   - {fileID: 1108760699796686226}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 20.34198, y: -158.04312}
-  m_SizeDelta: {x: -1652.019, y: -1031.9272}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -11.739197, y: -158.04312}
+  m_SizeDelta: {x: 85.8566, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7095785842140170910
 CanvasRenderer:
@@ -241,6 +242,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4755164139960445289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229089504287768382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a05a02def07645499e27b962bd69363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  resourceIcon: {fileID: 3516525084674548345}
+  resourceCost: {fileID: 59144007012150708}
 --- !u!1 &4499766672569152077
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,8 +266,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8491035950900326726}
   - component: {fileID: 1237551783165153528}
-  - component: {fileID: 9108055307326437504}
-  - component: {fileID: 6287918749825959113}
+  - component: {fileID: 3516525084674548345}
+  - component: {fileID: 638440985328150768}
   m_Layer: 5
   m_Name: ResourceIcon
   m_TagString: Untagged
@@ -277,7 +292,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20.2901, y: 0}
+  m_SizeDelta: {x: 35, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1237551783165153528
 CanvasRenderer:
@@ -287,7 +302,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4499766672569152077}
   m_CullTransparentMesh: 1
---- !u!114 &9108055307326437504
+--- !u!114 &3516525084674548345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,9 +311,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4499766672569152077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -307,14 +322,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!114 &6287918749825959113
+  m_Sprite: {fileID: 21300000, guid: 108f3eabc0afb6742ac45e95621e6aff, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &638440985328150768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

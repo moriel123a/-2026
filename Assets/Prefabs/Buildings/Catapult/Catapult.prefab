@@ -108,7 +108,7 @@ MonoBehaviour:
   attackRange: 6
   attackDamage: 8
   attackCooldown: 1.2
-  projectilePrefab: {fileID: 6826697171086615483, guid: 3e9fd665f292fd342bb48bd411d63b76, type: 3}
+  projectilePrefab: {fileID: 810374385677906489, guid: 3e9fd665f292fd342bb48bd411d63b76, type: 3}
   rotationSpeed: 360
   rotationOffset: -90
   aimTolerance: 5
