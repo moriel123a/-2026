@@ -10,7 +10,7 @@ public class CatapultTower : Building
     public int attackDamage = 8;
     public float attackCooldown = 1.2f;
 
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Projectile projectilePrefab;
 
     [Header("Aiming")]
     [Tooltip("Degrees per second the turret rotates to face its target.")]
